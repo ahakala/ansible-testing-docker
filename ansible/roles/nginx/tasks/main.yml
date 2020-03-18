@@ -1,8 +1,17 @@
 ---
 - name: Install packages
-  apt: name={{ item }} state=present
+  yum: name={{ item }} state=present
   with_items:
-      - nginx
+      - epel-release
+
+- name: Install nginx
+  yum: 
+    name: nginx
+    state: present
+    update_cache: yes
 
 - name: Restart nginx
-  service: name=nginx state=restarted
+  systemd: 
+    name: nginx
+    state: restarted
+    enabled: yes
