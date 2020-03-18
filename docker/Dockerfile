@@ -1,7 +1,8 @@
-FROM ubuntu:16.04
+FROM centos:centos7
 
-RUN apt-get update && apt-get install -y openssh-server sudo python unzip
-RUN mkdir /var/run/sshd
+RUN yum install -y openssh-server sudo python unzip
+RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
+RUN ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N ''
 RUN echo 'root:screencast' | chpasswd
 RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
